@@ -1,0 +1,54 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Alumnos</h2>
+        </div>
+    </div>
+    <br />
+    @if (Model.Alumno.Alumnos != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Asignar</td>
+
+                            <td class="hidden">IdAlumno</td>
+                            <td>Nombre</td>
+                            <td>Apellido Paterno</td>
+                            <td>Apellido Materno</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Alumno alumno in Model.Alumno.Alumnos)
+                        {
+                            <tr class="text-center">
+                                <td><a class="btn btn-warning glyphicon glyphicon-edit" name="IdAlumno" href="@Url.Action("MateriaGetAsignadas", "AlumnoMateria", alumno)"></a></td>
+                                <td>@alumno.Nombre </td>
+                                <td>@alumno.ApellidoPaterno</td> 
+                                <td>@alumno.ApellidoMaterno</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    No se encontraron registros
+                </div>
+            </div>
+        </div>
+    }
+</div>

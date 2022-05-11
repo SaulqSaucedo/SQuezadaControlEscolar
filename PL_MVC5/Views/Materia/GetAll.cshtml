@@ -1,0 +1,70 @@
+﻿@model ML.Materia
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Materia</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione el boton de "Agregar" para añadir una materia, el boton amarillo para actualizar una materia, y el boton rojo para eliminar una materia</h5>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11 text-right">
+            <p class="text-right">@Html.ActionLink("+", "Form", "Materia", htmlAttributes: new { @class = "btn btn-success" })</p>
+        </div>
+    </div>
+    <br />
+    @if (Model.Materias != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Editar</td>
+
+                            <td class="hidden">IdMateria</td>
+                            <td>Materia</td>
+                            <td>Costo</td>
+
+                            <td>Eliminar</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Materia materia in Model.Materias)
+                        {
+                            <tr class="text-center">
+                                <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Materia", new { IdMateria = materia.IdMateria })"></a></td>
+
+                                @Html.HiddenFor(model => model.IdMateria)
+                                <td>@materia.Nombre</td>
+                                <td>@materia.Costo</td>
+
+                                <td><a class="btn btn-danger glyphicon-trash" href="@Url.Action("Delete", "Materia", new { IdMateria = materia.IdMateria })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    No se encuentran registros de departamentos
+                </div>
+            </div>
+        </div>
+    }
+</div>

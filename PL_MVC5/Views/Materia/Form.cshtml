@@ -1,0 +1,100 @@
+﻿@model ML.Materia
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Materia</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Ingrese los datos correspondientes de la materia</h5>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Form", "Materia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.IdMateria, new { @class = "hidden" })
+                        @Html.TextBoxFor(model => model.IdMateria, new { @class = "hidden form-control", autocomplete = "off" })
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    @Html.LabelFor(model => model.Nombre)
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-pencil" id="basic-addon1"></span>
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "nombre", @onkeypress = "return SoloLetras(this, 'NombreError')" })
+                    </div>
+                    <label class="alert-danger" id="NombreError"></label>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    @Html.LabelFor(model => model.Costo)
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-font" id="basic-addon1"></span>
+                        @Html.TextBoxFor(model => model.Costo, new { @class = "form-control", @id = "costo", @onkeypress = "return SoloNumeros(this, 'CostoError')" })
+                    </div>
+                    <label class="alert-danger" id="CostoError"></label>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <input type="submit" value="Guardar" class="btn btn-success" />
+                        </div>
+                        <div class="col-md-1">
+                            <input type="reset" value="Limpiar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            @Html.ActionLink("Regresar", "GetAll", "Materia", htmlAttributes: new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+
+<script>
+    function SoloLetras(e, ControlId) {
+        var letra = e.onkeypress.arguments[0].key;
+
+        if (!/[^\s a-zA-Z]/.test(letra)) {
+            $("#" + ControlId).html('');
+            return true;
+        } else {
+            $("#" + ControlId).html('Solo se aceptan letras');
+            return false;
+        }
+    }
+    function SoloNumeros(e, ControlId) {
+        var letra = e.onkeypress.arguments[0].key;
+
+        if (!/[^0-9]+$/g.test(letra)) {
+            $("#" + ControlId).html('');
+            return true;
+        } else {
+            $("#" + ControlId).html('Solo se aceptan numeros');
+            return false;
+        }
+    }
+</script>

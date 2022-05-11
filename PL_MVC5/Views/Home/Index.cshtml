@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Control Escolar</h1>
+    <p class="lead">Bienvenido al Sistema de Control Escolar, donde podras tener acceso a multiples modulos.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Alumno</h2>
+        <p>
+            En este modulo se podra dar de alta o baja a algun alumno inscrito al control escolar, ademas de poder realizar modificaciones en sus datos personales.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("GetAll","Alumno")">Ir a control de Alumnos &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Materia</h2>
+        <p>
+            En este modulo podras realizar el alta, baja, consulta de materias, ademas de modificar el costo, o descripción de las materias inscritas.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("GetAll","Materia")">Ir a control de Materias &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Alumnos inscritos a materias</h2>
+        <p>
+            En este modulo podras visualizar aquellos alumnos que se encuentren inscritos a alguna materia, ademas de poder ingresar materias a aquellos alumnos que deseen inscribir mas de una materia.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("GetAll","AlumnoMateria")">Ir a control de Alumnos inscritos a materias &raquo;</a></p>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriaGetNoAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Materias no asignadas</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione una casilla para asignar una nueva materia al alumno</h5>
+        </div>
+    </div>
+    <br />
+    @if (Model.AlumnoMaterias.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("MateriaGetNoAsignadas", "AlumnoMateria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.Alumno.IdAlumno, new { @class = "hidden form-control", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(model => model.Alumno.Nombre, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+                        </div>
+
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(model => model.Alumno.ApellidoPaterno, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+                        </div>
+
+
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(model => model.Alumno.ApellidoMaterno, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr class="text-center">
+                                        <td>Asignar</td>
+
+                                        <td class="hidden">IdMateria</td>
+                                        <td>Materia</td>
+                                        <td>Costo</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnoMaterias)
+                                    {
+                                        <tr class="text-center">
+                                            <td class="text-center"><input type="checkbox" name="AlumnoMaterias" value="@alumnoMateria.Materia.IdMateria"/></td>
+                                            <td class="hidden">@alumnoMateria.Materia.IdMateria</td>
+                                            <td>@alumnoMateria.Materia.Nombre</td>
+                                            <td>@alumnoMateria.Materia.Costo</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <input type="submit" value="Asignar" class="btn btn-success" />
+                                    </div>
+                                    <div class="col-md-offset-12">
+                                        <a href="@Url.Action("MateriaGetAsignadas", "AlumnoMateria", new { IdAlumno = Model.Alumno.IdAlumno })"><p class="btn btn-danger">Regresar</p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                El alumno @Model.Alumno.Nombre @Model.Alumno.ApellidoPaterno @Model.Alumno.ApellidoMaterno ya cuenta con todas las materias disponibles.
+            </div>
+        </div>
+    </div>
+    }
+</div>

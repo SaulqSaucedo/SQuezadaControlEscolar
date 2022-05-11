@@ -1,0 +1,81 @@
+﻿@model ML.AlumnoMateria
+@{
+    ViewBag.Title = "MateriaGetAsignadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Materias Asignadas</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Seleccione el boton de "+" para asignar una nueva materia al alumno</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11 text-right">
+            <a href="@Url.Action("MateriaGetNoAsignadas", "AlumnoMateria", new { IdAlumno = Model.Alumno.IdAlumno })"><p class="text-right btn btn-success">+</p></a>
+        </div>
+    </div>
+    <br />
+    @if (Model.AlumnoMaterias.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.IdAlumnoMateria, new { @class = "hidden form-control", autocomplete = "off" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Alumno.Nombre, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+            </div>
+        
+        
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Alumno.ApellidoPaterno, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+            </div>
+        
+        
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Alumno.ApellidoMaterno, new { @class = "form-control", @disabled = "true", autocomplete = "off" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Eliminar</td>
+
+                            <td class="hidden">IdMateria</td>
+                            <td>Materia</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.AlumnoMateria alumnoMateria in Model.AlumnoMaterias)
+                        {
+                            <tr class="text-center">
+                                <td><a class="btn btn-danger glyphicon-trash" href="@Url.Action("DeleteAsignadas", "AlumnoMateria", alumnoMateria)"></a></td>
+                                <td>@alumnoMateria.Materia.Nombre </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    El alumno @Model.Alumno.Nombre @Model.Alumno.ApellidoPaterno @Model.Alumno.ApellidoMaterno no cuenta con materias asignadas
+                </div>
+            </div>
+        </div>
+    }
+</div>
